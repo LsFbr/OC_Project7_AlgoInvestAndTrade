@@ -15,10 +15,12 @@ with open(csv_path, "r") as file:
                 "name": row[0],
                 "cost": int(row[1]),
                 "profit_rate": int(row[2].split("%")[0]) / 100,
+                # pré-calcul du profit (gain de temps : 0.2s)
                 "profit_value": int(row[1]) * int(row[2].split("%")[0]) / 100
-                # pré-calcul du profit
             }
         )
+    # trie les actions par ratio profit/coût décroissant (gain de temps : 0.02s)
+    actions.sort(key=lambda action: action["profit_value"]/action["cost"], reverse=True)
 
 
 def bruteforce():
@@ -27,11 +29,12 @@ def bruteforce():
     best_combination = []
 
     for r in range(1, len(actions) + 1):
-        print(time.time() - start_time)
+        # print(time.time() - start_time)
         for combination in combinations(actions, r):
             total_cost = 0
             total_profit = 0
 
+            # Elimine les combinaisons qui dépassent le coût maximum (gain de temps : 0.68s)
             for action in combination:
                 total_cost += action["cost"]
                 if total_cost > max_cost:
