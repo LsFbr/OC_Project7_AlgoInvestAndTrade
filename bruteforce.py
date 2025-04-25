@@ -65,7 +65,7 @@ def save_combination_times():
             writer.writerow([time_elapsed])
 
 
-def display_best_combination():
+def display_results():
     if combinations:
         best_combination = max(
             combinations,
@@ -74,22 +74,18 @@ def display_best_combination():
             ),
         )
         total_cost = sum(action["cost"] for action in best_combination)
-        total_profit = sum(
-            action["cost"] * action["profit_rate"]
-            for action in best_combination
-            )*100/total_cost
+        total_profit = sum(action["cost"] * action["profit_rate"] for action in best_combination)
+        total_profit_rate = total_profit*100/total_cost
 
-        print(f"Meilleure combinaison: "
-              f"{[action['name'] for action in best_combination]}"
-              )
+        print(f"Meilleure combinaison: {[action['name'] for action in best_combination]}")
         print(f"Coût total: {total_cost}€")
-        print(f"Profit total: {total_profit:.2f}%")
+        print(f"Profit total: {total_profit_rate:.2f}% ({total_profit}€)")
 
 
 def main():
     bruteforce()
     print(f"Nombre de combinaisons avec coût <= 500€: {len(combinations)}")
-    display_best_combination()
+    display_results()
     end_time = time.time()
     print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")
     # save_combination_times()
