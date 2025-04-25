@@ -30,7 +30,6 @@ def bruteforce():
     best_combination = []
 
     for r in range(1, len(actions) + 1):
-        print(time.time() - start_time)
         for combination in combinations(actions, r):
             total_cost = sum(action["cost"] for action in combination)
             total_profit = sum(
