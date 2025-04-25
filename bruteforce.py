@@ -45,7 +45,6 @@ def bruteforce(index=0, combination=None):
         return
 
     bruteforce(index + 1, combination)
-    print(index)
 
     current_cost = sum(action["cost"] for action in combination)
     if current_cost + actions[index]["cost"] <= 500:
@@ -93,7 +92,7 @@ def main():
     display_best_combination()
     end_time = time.time()
     print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")
-    save_combination_times()
+    # save_combination_times()
 
 
 if __name__ == "__main__":
