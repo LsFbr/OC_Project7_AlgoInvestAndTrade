@@ -29,7 +29,6 @@ def bruteforce():
     best_combination = []
 
     for r in range(1, len(actions) + 1):
-        # print(time.time() - start_time)
         for combination in combinations(actions, r):
             total_cost = 0
             total_profit = 0
@@ -45,15 +44,11 @@ def bruteforce():
                 best_profit = total_profit
                 best_combination = combination
 
-    print(
-        f"meilleure combinaison: "
-        f"{[action['name']for action in best_combination]}"
-        )
-    print(
-        f"Coût total: "
-        f"{sum(action['cost'] for action in best_combination)}€"
-        )
-    print(f"Profit total: {best_profit:.2f}€")
+    total_profit_rate = best_profit*100/total_cost
+
+    print(f"meilleure combinaison: {[action['name']for action in best_combination]}")
+    print(f"Coût total: {sum(action['cost'] for action in best_combination)}€")
+    print(f"Profit total: {total_profit_rate:.2f}% ({best_profit:.2f}€)")
 
 
 def main():
