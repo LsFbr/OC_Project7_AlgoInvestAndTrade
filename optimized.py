@@ -19,6 +19,8 @@ with open(csv_path, "r") as file:
                 # à chaque étape de la recursion
             }
         )
+    # trie les actions par ratio profit/coût décroissant (gain de temps : 0.02s)
+    actions.sort(key=lambda action: action["profit_value"]/action["cost"], reverse=True)
 
 best_combination = []
 best_profit = 0
@@ -58,25 +60,23 @@ def bruteforce(
         current_combination.pop()
 
 
-def display_best_combination():
+def display_results():
     if best_combination:
         total_cost = sum(action["cost"] for action in best_combination)
-        total_profit = sum(
-            action["cost"] * action["profit_rate"]
-            for action in best_combination
-            )*100/total_cost if total_cost > 0 else 0
+        total_profit = sum(action["profit_value"] for action in best_combination)
+        total_profit_rate = total_profit*100/total_cost
 
         print(f"Meilleure combinaison: "
               f"{[action['name'] for action in best_combination]}"
               )
         print(f"Coût total: {total_cost}€")
-        print(f"Profit total: {total_profit:.2f}%")
+        print(f"Profit total: {total_profit_rate:.2f}% ({total_profit}€)")
 
 
 def main():
     start_time = time.time()
     bruteforce()
-    display_best_combination()
+    display_results()
     end_time = time.time()
     print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")
 
