@@ -66,9 +66,7 @@ def display_results():
         total_profit = sum(action["profit_value"] for action in best_combination)
         total_profit_rate = total_profit*100/total_cost
 
-        print(f"Meilleure combinaison: "
-              f"{[action['name'] for action in best_combination]}"
-              )
+        print(f"Meilleure combinaison: {[action['name'] for action in best_combination]}")
         print(f"Coût total: {total_cost}€")
         print(f"Profit total: {total_profit_rate:.2f}% ({total_profit}€)")
 
