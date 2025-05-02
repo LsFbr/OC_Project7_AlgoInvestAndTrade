@@ -1,7 +1,7 @@
 import csv
 import time
 
-csv_path = "Liste+d'actions+-+P7+Python+-+Feuille+1.csv"
+csv_path = "data/dataset_base.csv"
 
 actions = []
 
