@@ -1,30 +1,19 @@
-import csv
 from itertools import combinations
 import time
 
-start_time = time.time()
-csv_path = "Liste+d'actions+-+P7+Python+-+Feuille+1.csv"
+from utils import parse_csv
 
-actions = []
-with open(csv_path, "r") as file:
-    reader = csv.reader(file)
-    next(reader)
-    for row in reader:
-        actions.append(
-            {
-                "name": row[0],
-                "cost": int(row[1]),
-                "profit_rate": int(row[2].split("%")[0]) / 100,
-                # pré-calcul du profit (gain de temps : 0.2s)
-                "profit_value": int(row[1]) * int(row[2].split("%")[0]) / 100
-            }
-        )
+csv_path = "data/dataset_base.csv"
+
+
+def bruteforce(actions, max_cost):
+    # pré-calcul du profit (gain de temps : 0.2s)
+    for action in actions:
+        action["profit_value"] = action["cost"] * action["profit_rate"]
+
     # trie les actions par ratio profit/coût décroissant (gain de temps : 0.02s)
     actions.sort(key=lambda action: action["profit_value"]/action["cost"], reverse=True)
 
-
-def bruteforce():
-    max_cost = 500
     best_profit = 0
     best_combination = []
 
@@ -52,7 +41,9 @@ def bruteforce():
 
 
 def main():
-    bruteforce()
+    start_time = time.time()
+    actions = parse_csv(csv_path, optimize=True)
+    bruteforce(actions, 500)
     end_time = time.time()
     print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")
 
