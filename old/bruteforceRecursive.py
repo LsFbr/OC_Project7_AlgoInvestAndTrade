@@ -3,8 +3,7 @@ import time
 
 start_time = time.time()
 
-csv_path = "Liste+d'actions+-+P7+Python+-+Feuille+1.csv"
-timing_csv_path = "bruteforce_combination_times.csv"
+csv_path = "data/dataset_base.csv"
 
 actions = []
 
@@ -39,9 +38,6 @@ def bruteforce(index=0, combination=None):
         and sum(action["cost"] for action in combination) <= 500
     ):
         combinations.append(combination.copy())
-        # Enregistrer le temps écoulé depuis le début
-        # current_time = time.time() - start_time
-        # combination_times.append(current_time)
         return
 
     bruteforce(index + 1, combination)
@@ -54,15 +50,6 @@ def bruteforce(index=0, combination=None):
         combination_times.append(current_time)
 
         combination.pop()
-
-
-def save_combination_times():
-    with open(timing_csv_path, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['time_elapsed'])
-
-        for i, time_elapsed in enumerate(combination_times):
-            writer.writerow([time_elapsed])
 
 
 def display_results():
@@ -88,7 +75,6 @@ def main():
     display_results()
     end_time = time.time()
     print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")
-    # save_combination_times()
 
 
 if __name__ == "__main__":
