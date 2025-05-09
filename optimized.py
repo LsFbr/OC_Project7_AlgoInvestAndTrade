@@ -14,22 +14,26 @@ def knapsack(actions, max_cost):
     returns:
         list of actions
     """
-    for action in actions:
-        if action["cost"] <= 0 or action["cost"] > max_cost:
-            actions.remove(action)
+    # Remove actions with invalid cost
+    valid_actions = []
 
-    actions.sort(key=lambda action: action["profit_value"]/action["cost"], reverse=True)
+    for action in actions:
+        if action["cost"] > 0 and action["cost"] <= max_cost:
+            valid_actions.append(action)
+
+    # Sort actions by profit rate in descending order
+    valid_actions.sort(key=lambda action: action["profit_value"]/action["cost"], reverse=True)
 
     # Convert max_cost to an integer by scaling
     scale_factor = 100
     max_cost_int = int(max_cost * scale_factor)
 
-    n = len(actions)
+    n = len(valid_actions)
     table = [[0 for _ in range(max_cost_int + 1)] for _ in range(n + 1)]
 
     for i in range(1, n + 1):
-        cost_i = int(actions[i-1]["cost"] * scale_factor)  # Convert to int
-        profit_i = actions[i-1]["profit_value"]
+        cost_i = int(valid_actions[i-1]["cost"] * scale_factor)  # Convert to int
+        profit_i = valid_actions[i-1]["profit_value"]
         for w in range(1, max_cost_int + 1):
             if cost_i <= w:
                 table[i][w] = max(
@@ -44,8 +48,8 @@ def knapsack(actions, max_cost):
     w = max_cost_int
     for i in range(n, 0, -1):
         if table[i][w] != table[i-1][w]:
-            best_combination.append(actions[i-1])
-            w -= int(actions[i-1]["cost"] * scale_factor)
+            best_combination.append(valid_actions[i-1])
+            w -= int(valid_actions[i-1]["cost"] * scale_factor)
 
     return best_combination
 
