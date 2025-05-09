@@ -4,7 +4,7 @@ from utils import parse_csv
 from bruteforce import bruteforce
 from optimized import knapsack
 
-csv_path = "datasets/dataset_test.csv"
+csv_path = "datasets/dataset_base.csv"
 
 
 def measure_time(func, actions, max_cost):
