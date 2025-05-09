@@ -39,6 +39,7 @@ def main():
     plt.plot(action_counts, bruteforce_memory, label='Bruteforce', marker='o')
     plt.plot(action_counts, optimized_memory, label='Optimized', marker='x')
     plt.xticks(range(0, len(actions) + 1))
+    plt.yticks(range(0, int(max(bruteforce_memory) + 10), 10))
     plt.xlabel('Nombre d\'actions')
     plt.ylabel('Utilisation de la mémoire (MiB)')
     plt.title('Comparaison de la complexité spatiale')
