@@ -21,22 +21,18 @@ def bruteforce(actions, max_cost):
     returns:
         list of actions
     """
-    for action in actions:
-        if action["cost"] <= 0 or action["cost"] > max_cost:
-            actions.remove(action)
-
-    best_profit = 0
-    best_combination = []
+    total_combinations = []
 
     for r in range(1, len(actions) + 1):
         for combination in combinations(actions, r):
-            total_cost = sum(action["cost"] for action in combination)
-            total_profit = sum(action["cost"] * action["profit_rate"]for action in combination)
+            total_combinations.append(combination)
 
-            if total_cost <= max_cost and total_profit > best_profit:
-                best_profit = total_profit
-                best_combination = combination
-
+    best_combination = max(
+            [combo for combo in total_combinations if sum(action["cost"] for action in combo) <= max_cost],
+            key=lambda combo: sum(
+                action["cost"] * action["profit_rate"] for action in combo
+            ),
+        )
     return best_combination
 
 
