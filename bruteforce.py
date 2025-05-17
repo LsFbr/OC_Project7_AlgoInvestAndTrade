@@ -38,7 +38,7 @@ def bruteforce(actions, max_cost):
 
 def main():
     start_time = time.time()
-    actions = parse_csv(csv_path)
+    actions = parse_csv(csv_path, optimize=False)
     best_combination = bruteforce(actions, 500)
     display_results(best_combination)
     end_time = time.time()

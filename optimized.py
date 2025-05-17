@@ -2,7 +2,7 @@ import time
 
 from utils import parse_csv, display_results
 
-csv_path = "datasets/dataset_base.csv"
+csv_path = "datasets/dataset_1.csv"
 
 
 def knapsack(actions, max_cost):
@@ -17,22 +17,22 @@ def knapsack(actions, max_cost):
     # Remove actions with invalid cost
     valid_actions = []
 
+    max_cost_int = int(max_cost * 100)
+
     for action in actions:
-        if action["cost"] > 0 and action["cost"] <= max_cost:
+        if action["cost"] > 0 and action["cost"] <= max_cost_int:
             valid_actions.append(action)
 
     # Sort actions by profit rate in descending order
-    valid_actions.sort(key=lambda action: action["profit_value"]/action["cost"], reverse=True)
+    valid_actions.sort(key=lambda action: action["cost"], reverse=True)
 
     # Convert max_cost to an integer by scaling
-    scale_factor = 100
-    max_cost_int = int(max_cost * scale_factor)
 
     n = len(valid_actions)
     table = [[0 for _ in range(max_cost_int + 1)] for _ in range(n + 1)]
 
     for i in range(1, n + 1):
-        cost_i = int(valid_actions[i-1]["cost"] * scale_factor)  # Convert to int
+        cost_i = valid_actions[i-1]["cost"]
         profit_i = valid_actions[i-1]["profit_value"]
         for w in range(1, max_cost_int + 1):
             if cost_i <= w:
@@ -49,7 +49,10 @@ def knapsack(actions, max_cost):
     for i in range(n, 0, -1):
         if table[i][w] != table[i-1][w]:
             best_combination.append(valid_actions[i-1])
-            w -= int(valid_actions[i-1]["cost"] * scale_factor)
+            w -= valid_actions[i-1]["cost"]
+
+    for action in best_combination:
+        action["cost"] = action["cost"] / 100
 
     return best_combination
 
