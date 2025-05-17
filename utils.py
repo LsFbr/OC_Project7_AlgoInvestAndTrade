@@ -7,7 +7,7 @@ def parse_csv(csv_path, optimize=False):
     Parse the CSV file and return a list of actions.
     args:
         csv_path: str, path to the CSV file
-        optimize: bool, if True, add the profit_value to the actions
+        optimize: bool, if True, add the profit_value to the actions and scale the costs by 100
     returns:
         list of actions
     """
@@ -16,16 +16,27 @@ def parse_csv(csv_path, optimize=False):
     with open(csv_path, "r") as file:
         reader = csv.reader(file)
         next(reader)
-        for row in reader:
-            cost = float(row[1])
-            profit_rate = float(row[2].split("%")[0]) / 100
-            action = {
-                "name": row[0],
-                "cost": cost,
-                "profit_rate": profit_rate,
-                "profit_value": cost * profit_rate
-            }
-            actions.append(action)
+        if optimize:
+            for row in reader:
+                scaled_cost = int(float(row[1]) * 100)
+                profit_rate = float(row[2].split("%")[0]) / 100
+                action = {
+                    "name": row[0],
+                    "cost": scaled_cost,
+                    "profit_rate": profit_rate,
+                    "profit_value": int(scaled_cost * profit_rate)
+                }
+                actions.append(action)
+        else:
+            for row in reader:
+                cost = float(row[1])
+                profit_rate = float(row[2].split("%")[0]) / 100
+                action = {
+                    "name": row[0],
+                    "cost": cost,
+                    "profit_rate": profit_rate
+                }
+                actions.append(action)
     return actions
 
 
