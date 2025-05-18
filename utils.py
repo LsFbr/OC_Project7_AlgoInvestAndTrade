@@ -2,7 +2,7 @@ import csv
 from prettytable import PrettyTable
 
 
-def parse_csv(csv_path, optimize=False):
+def parse_csv(csv_name, optimize=False):
     """
     Parse the CSV file and return a list of actions.
     args:
@@ -11,7 +11,7 @@ def parse_csv(csv_path, optimize=False):
     returns:
         list of actions
     """
-
+    csv_path = f"datasets/{csv_name}"
     actions = []
     with open(csv_path, "r") as file:
         reader = csv.reader(file)
@@ -69,3 +69,40 @@ def display_results(best_combination, optimize=False):
 
     print(f"Coût total: {total_cost}€")
     print(f"Profit total: {total_profit_rate:.2f}% ({total_profit:.2f}€)")
+
+
+def dataset_exploration_report(csv_name, actions):
+    """
+    Display a report of the dataset.
+    """
+    null_cost_count = 0
+    negative_cost_count = 0
+    null_profit_rate_count = 0
+    negative_profit_rate_count = 0
+    unusable_actions_count = 0
+
+    for action in actions:
+        if action["cost"] == 0:
+            null_cost_count += 1
+        if action["cost"] < 0:
+            negative_cost_count += 1
+        if action["profit_rate"] == 0:
+            null_profit_rate_count += 1
+        if action["profit_rate"] < 0:
+            negative_profit_rate_count += 1
+
+    unusable_actions_count = (
+        null_cost_count
+        + negative_cost_count
+        + null_profit_rate_count
+        + negative_profit_rate_count
+    )
+
+    print(f"Rapport de l'exploration du dataset {csv_name}:")
+    print(f"Actions: {len(actions)}")
+    print(f"Actions avec un coût nul: {null_cost_count}")
+    print(f"Actions avec un coût négatif: {negative_cost_count}")
+    print(f"Actions avec un profit nul: {null_profit_rate_count}")
+    print(f"Actions avec un profit négatif: {negative_profit_rate_count}")
+    print("--------------------------------")
+    print(f"Actions inutilisables: {unusable_actions_count} ({unusable_actions_count*100/len(actions):.2f}%)")
