@@ -1,15 +1,8 @@
 from itertools import combinations
 import time
+import sys
 
 from utils import parse_csv, display_results
-
-
-csv_path = "datasets/dataset_base.csv"
-
-# tester toutes les combinaisons d 'actions
-# chaque action ne peut etre prise qu'une fois
-# on ne peut pas dépenser plus de 500€
-# on veut maximiser le profit
 
 
 def bruteforce(actions, max_cost):
@@ -37,9 +30,17 @@ def bruteforce(actions, max_cost):
 
 
 def main():
+    if len(sys.argv) != 3:
+        print("The programm needs a csv name and a max cost as only arguments")
+        print("Usage: python bruteforce.py <csv_name> <max_cost>")
+        sys.exit(1)
+
+    csv_name = sys.argv[1]
+    max_cost = float(sys.argv[2])
+
     start_time = time.time()
-    actions = parse_csv(csv_path, optimize=False)
-    best_combination = bruteforce(actions, 500)
+    actions = parse_csv(csv_name, optimize=False)
+    best_combination = bruteforce(actions, max_cost)
     display_results(best_combination)
     end_time = time.time()
     print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")

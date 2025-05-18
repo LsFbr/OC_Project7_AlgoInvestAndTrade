@@ -1,8 +1,6 @@
 import time
-
-from utils import parse_csv, display_results
-
-csv_path = "datasets/dataset_base.csv"
+import sys
+from utils import parse_csv, display_results, dataset_exploration_report
 
 
 def knapsack(actions, max_cost):
@@ -22,9 +20,6 @@ def knapsack(actions, max_cost):
     for action in actions:
         if action["cost"] > 0 and action["cost"] <= max_cost_int:
             valid_actions.append(action)
-
-    # Sort actions by profit rate in descending order
-    valid_actions.sort(key=lambda action: action["cost"], reverse=True)
 
     # Convert max_cost to an integer by scaling
 
@@ -55,9 +50,18 @@ def knapsack(actions, max_cost):
 
 
 def main():
+    if len(sys.argv) != 3:
+        print("The programm needs a csv name and a max cost as only arguments")
+        print("Usage: python optimized.py <csv_name> <max_cost>")
+        sys.exit(1)
+
+    csv_name = sys.argv[1]
+    max_cost = float(sys.argv[2])
+
     start_time = time.time()
-    actions = parse_csv(csv_path, optimize=True)
-    best_combination = knapsack(actions, 500)
+    actions = parse_csv(csv_name, optimize=True)
+    dataset_exploration_report(csv_name, actions)
+    best_combination = knapsack(actions, max_cost)
     display_results(best_combination, optimize=True)
     end_time = time.time()
     print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")
