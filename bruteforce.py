@@ -28,9 +28,9 @@ def bruteforce(actions, max_cost):
             total_combinations.append(combination)
 
     best_combination = max(
-            [combo for combo in total_combinations if sum(action["cost"] for action in combo) <= max_cost],
+            [combo for combo in total_combinations if sum(action.cost for action in combo) <= max_cost],
             key=lambda combo: sum(
-                action["cost"] * action["profit_rate"] for action in combo
+                action.cost * action.profit_rate for action in combo
             ),
         )
     return best_combination
