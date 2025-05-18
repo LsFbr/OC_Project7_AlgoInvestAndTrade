@@ -2,7 +2,7 @@ import time
 
 from utils import parse_csv, display_results
 
-csv_path = "datasets/dataset_1.csv"
+csv_path = "datasets/dataset_base.csv"
 
 
 def knapsack(actions, max_cost):
@@ -51,9 +51,6 @@ def knapsack(actions, max_cost):
             best_combination.append(valid_actions[i-1])
             w -= valid_actions[i-1]["cost"]
 
-    for action in best_combination:
-        action["cost"] = action["cost"] / 100
-
     return best_combination
 
 
@@ -61,7 +58,7 @@ def main():
     start_time = time.time()
     actions = parse_csv(csv_path, optimize=True)
     best_combination = knapsack(actions, 500)
-    display_results(best_combination)
+    display_results(best_combination, optimize=True)
     end_time = time.time()
     print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")
 
