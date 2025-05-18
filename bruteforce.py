@@ -39,11 +39,11 @@ def main():
     max_cost = float(sys.argv[2])
 
     start_time = time.time()
-    actions = parse_csv(csv_name, optimize=False)
+    actions = parse_csv(csv_name, optimized=False)
     best_combination = bruteforce(actions, max_cost)
-    display_results(best_combination)
+    display_results(csv_name, best_combination, optimized=False)
     end_time = time.time()
-    print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")
+    print(f"Temps d'exécution: {end_time - start_time:.2f} secondes\n")
 
 
 if __name__ == "__main__":

@@ -59,12 +59,12 @@ def main():
     max_cost = float(sys.argv[2])
 
     start_time = time.time()
-    actions = parse_csv(csv_name, optimize=True)
+    actions = parse_csv(csv_name, optimized=True)
     dataset_exploration_report(csv_name, actions)
     best_combination = knapsack(actions, max_cost)
-    display_results(best_combination, optimize=True)
+    display_results(csv_name, best_combination, optimized=True)
     end_time = time.time()
-    print(f"Temps d'exécution: {end_time - start_time:.2f} secondes")
+    print(f"Temps d'exécution: {end_time - start_time:.2f} secondes\n")
 
 
 if __name__ == "__main__":
