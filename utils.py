@@ -40,7 +40,7 @@ def parse_csv(csv_path, optimize=False):
     return actions
 
 
-def display_results(best_combination):
+def display_results(best_combination, optimize=False):
     """
     Display the results of the best combination.
     args:
@@ -50,14 +50,22 @@ def display_results(best_combination):
     table.field_names = ["Nom", "Coût (€)", "Profit (%)"]
 
     for action in best_combination:
-        table.add_row([action["name"], f"{action['cost']:.2f}", f"{action['profit_rate']*100:.2f}"])
+        if optimize:
+            table.add_row([action["name"], f"{action['cost']/100:.2f}", f"{action['profit_rate']*100:.2f}"])
+        else:
+            table.add_row([action["name"], f"{action['cost']:.2f}", f"{action['profit_rate']*100:.2f}"])
 
     print("Meilleure combinaison :")
     print(table)
 
-    total_cost = sum(action["cost"] for action in best_combination)
-    total_profit = sum(action["cost"]*action["profit_rate"] for action in best_combination)
-    total_profit_rate = total_profit*100/total_cost
+    if optimize:
+        total_cost = sum(action["cost"] for action in best_combination)/100
+        total_profit = sum(action["cost"]*action["profit_rate"] for action in best_combination)/100
+        total_profit_rate = total_profit*100/total_cost
+    else:
+        total_cost = sum(action["cost"] for action in best_combination)
+        total_profit = sum(action["cost"]*action["profit_rate"] for action in best_combination)
+        total_profit_rate = total_profit*100/total_cost
 
     print(f"Coût total: {total_cost}€")
     print(f"Profit total: {total_profit_rate:.2f}% ({total_profit:.2f}€)")
