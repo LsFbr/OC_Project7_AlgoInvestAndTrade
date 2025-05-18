@@ -22,8 +22,8 @@ def main():
     optimized_times = []
 
     # Charger les actions depuis le CSV
-    actions_optimized = parse_csv(csv_name, optimize=True)
-    actions_not_optimized = parse_csv(csv_name, optimize=False)
+    actions_optimized = parse_csv(csv_name, optimized=True)
+    actions_not_optimized = parse_csv(csv_name, optimized=False)
 
     # Tester pour différentes tailles de listes d'actions
     for i in range(1, len(actions_not_optimized) + 1):
