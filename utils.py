@@ -2,12 +2,12 @@ import csv
 from prettytable import PrettyTable
 
 
-def parse_csv(csv_name, optimize=False):
+def parse_csv(csv_name, optimized=False):
     """
     Parse the CSV file and return a list of actions.
     args:
-        csv_path: str, path to the CSV file
-        optimize: bool, if True, add the profit_value to the actions and scale the costs by 100
+        csv_name: str, name of the csv file
+        optimized: bool, if True, add the profit_value to the actions and scale the costs by 100
     returns:
         list of actions
     """
@@ -16,7 +16,7 @@ def parse_csv(csv_name, optimize=False):
     with open(csv_path, "r") as file:
         reader = csv.reader(file)
         next(reader)
-        if optimize:
+        if optimized:
             for row in reader:
                 scaled_cost = int(float(row[1]) * 100)
                 profit_rate = float(row[2].split("%")[0]) / 100
@@ -40,25 +40,29 @@ def parse_csv(csv_name, optimize=False):
     return actions
 
 
-def display_results(best_combination, optimize=False):
+def display_results(csv_name, best_combination, optimized=False):
     """
     Display the results of the best combination.
     args:
+        csv_name: str, name of the csv file
         best_combination: list of actions
+        optimized: bool, if True, the actions are optimized
     """
+    print(f"--- Résultat pour le dataset {csv_name} ---")
+
     table = PrettyTable()
     table.field_names = ["Nom", "Coût (€)", "Profit (%)"]
+    table.title = "Meilleure combinaison :"
 
     for action in best_combination:
-        if optimize:
+        if optimized:
             table.add_row([action["name"], f"{action['cost']/100:.2f}", f"{action['profit_rate']*100:.2f}"])
         else:
             table.add_row([action["name"], f"{action['cost']:.2f}", f"{action['profit_rate']*100:.2f}"])
 
-    print("Meilleure combinaison :")
     print(table)
 
-    if optimize:
+    if optimized:
         total_cost = sum(action["cost"] for action in best_combination)/100
         total_profit = sum(action["cost"]*action["profit_rate"] for action in best_combination)/100
         total_profit_rate = total_profit*100/total_cost
@@ -74,6 +78,9 @@ def display_results(best_combination, optimize=False):
 def dataset_exploration_report(csv_name, actions):
     """
     Display a report of the dataset.
+    args:
+        csv_name: str, name of the csv file
+        actions: list of actions
     """
     null_cost_count = 0
     negative_cost_count = 0
@@ -105,4 +112,4 @@ def dataset_exploration_report(csv_name, actions):
     print(f"Actions avec un profit nul: {null_profit_rate_count}")
     print(f"Actions avec un profit négatif: {negative_profit_rate_count}")
     print("--------------------------------")
-    print(f"Actions inutilisables: {unusable_actions_count} ({unusable_actions_count*100/len(actions):.2f}%)")
+    print(f"Actions inutilisables: {unusable_actions_count} ({unusable_actions_count*100/len(actions):.2f}%)\n")
