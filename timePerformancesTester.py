@@ -4,7 +4,7 @@ from utils import parse_csv
 from bruteforce import bruteforce
 from optimized import knapsack
 
-csv_path = "datasets/dataset_base.csv"
+csv_name = "dataset_base.csv"
 
 
 def measure_time(func, actions, max_cost):
@@ -22,8 +22,8 @@ def main():
     optimized_times = []
 
     # Charger les actions depuis le CSV
-    actions_optimized = parse_csv(csv_path, optimize=True)
-    actions_not_optimized = parse_csv(csv_path, optimize=False)
+    actions_optimized = parse_csv(csv_name, optimize=True)
+    actions_not_optimized = parse_csv(csv_name, optimize=False)
 
     # Tester pour différentes tailles de listes d'actions
     for i in range(1, len(actions_not_optimized) + 1):
