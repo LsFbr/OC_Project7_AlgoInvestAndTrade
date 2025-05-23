@@ -64,7 +64,7 @@ Deux programmes sont disponibles :
 - bruteforce.py : algorithme de force brute
 - optimized.py : algorithme de programmation dynamique
 
-Ces deux programmes permettent d'aboutir au même résultat, c'est-à-dire de trouver la meilleure stratégie d'investissement pour un capital initial donné. Cependant, l'algorithme de force brute a une performance brute moins élevée que l'algorithme de programmation dynamique. Il consomme plus de ressources et de temps, et devient rapidement inutilisable pour des datasets de plus de 20 actions.
+Ces deux programmes permettent d'aboutir au même résultat. Cependant, l'algorithme de force brute est moins performant que l'algorithme de programmation dynamique. Il consomme plus de ressources et de temps, et devient rapidement inutilisable pour des datasets de plus de 20 actions.
 
 ### Datasets : 
 Pour pouvoir être utilisés, les datasets d'actions à traiter doivent :
