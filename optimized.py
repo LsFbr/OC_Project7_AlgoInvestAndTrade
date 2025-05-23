@@ -15,13 +15,12 @@ def knapsack(actions, max_cost):
     # Remove actions with invalid cost
     valid_actions = []
 
+    # Convert max_cost to an integer by scaling
     max_cost_int = int(max_cost * 100)
 
     for action in actions:
         if action["cost"] > 0 and action["cost"] <= max_cost_int:
             valid_actions.append(action)
-
-    # Convert max_cost to an integer by scaling
 
     n = len(valid_actions)
     table = [[0 for _ in range(max_cost_int + 1)] for _ in range(n + 1)]
