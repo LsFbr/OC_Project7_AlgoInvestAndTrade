@@ -105,7 +105,7 @@ def dataset_exploration_report(csv_name, actions):
         + negative_profit_rate_count
     )
 
-    print(f"Rapport de l'exploration du dataset {csv_name}:")
+    print(f"\nRapport de l'exploration du dataset {csv_name}:")
     print(f"Actions: {len(actions)}")
     print(f"Actions avec un coût nul: {null_cost_count}")
     print(f"Actions avec un coût négatif: {negative_cost_count}")
