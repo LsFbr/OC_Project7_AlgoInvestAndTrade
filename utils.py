@@ -48,7 +48,7 @@ def display_results(csv_name, best_combination, optimized=False):
         best_combination: list of actions
         optimized: bool, if True, the actions are optimized
     """
-    print(f"--- Résultat pour le dataset {csv_name} ---")
+    print(f"\n--- Résultat pour le dataset {csv_name} ---")
 
     table = PrettyTable()
     table.field_names = ["Nom", "Coût (€)", "Profit (%)"]
