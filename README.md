@@ -1,5 +1,5 @@
-<div style="display: flex; justify-content: center; gap: 10px;">
-    <h1>AlgoInvest&Trade</h1>
+<div style="display: flex; align-items: center; gap: 10px;">
+    <h1 style="margin: 0;">AlgoInvest&Trade</h1>
     <img src="https://user.oc-static.com/upload/2020/09/18/1600429119334_P6.png" 
             alt="le logo d'AlgoInvest&Trade" 
             width="45" 
