@@ -1,9 +1,13 @@
 
-<h1>AlgoInvest&Trade</h1>
-<img src="https://user.oc-static.com/upload/2020/09/18/1600429119334_P6.png" 
-        alt="Logo d'AlgoInvest&Trade" 
-        width="250" 
-        height="200"/>
+# <h1 align="center">AlgoInvest&Trade</h1>
+</br>
+<p align="center">
+    <img src="https://user.oc-static.com/upload/2020/09/18/1600429119334_P6.png" 
+            alt="le logo d'AlgoInvest&Trade" 
+            width="250" 
+            height="200"/>
+</p>
+        
 
 
 Ce projet a pour but d'optimiser des stratégies d'investissement par achat 
