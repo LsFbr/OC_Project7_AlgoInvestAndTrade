@@ -109,3 +109,15 @@ python3 <nom_du_programme>.py <nom_du_dataset>.csv <capital_initial>
     ```
     python3 optimized.py dataset_2.csv 500
     ```
+
+# Rapport de flake8
+
+Le rapport de flake8 est enregistré dans le dossier flake8_report.
+
+Pour lancer un nouveau rapport, il suffit de lancer la commande suivante :
+```
+flake8 --format=html --htmldir=flake8_report
+```
+
+
+
