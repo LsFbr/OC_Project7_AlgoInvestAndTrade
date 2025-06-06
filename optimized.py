@@ -19,7 +19,7 @@ def knapsack(actions, max_cost):
     max_cost_int = int(max_cost * 100)
 
     for action in actions:
-        if action["cost"] > 0 and action["cost"] <= max_cost_int:
+        if action["cost"] > 0 and action["cost"] <= max_cost_int and action["profit_value"] > 0:
             valid_actions.append(action)
 
     n = len(valid_actions)
